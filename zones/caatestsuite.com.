@@ -1063,3 +1063,15 @@ www.auto-base-san	IN	CAA	0 dummy "dummy"
 auto-base-san		IN	CAA	0 issue "caatestsuite.com"
 
 www.auto-www-san	IN	CAA	0 issue "caatestsuite.com"
+
+permit-other-ca.sxg IN CAA 0 issue "caatestsuite.com; cansignhttpexchanges=yes"
+permit-wild-other-ca.sxg IN CAA 0 issuewild "caatestsuite.com; cansignhttpexchanges=yes"
+
+iodef.sxg IN CAA 0 iodef "mailto:issue@caatestsuite.com"
+
+permit-issue-only.sxg IN CAA 0 issue "ca-under-test.caatestsuite.com; cansignhttpexchanges=yes"
+permit-issue-only.sxg IN CAA 0 issuewild "even if the issuewild Property Value is invalid?"
+permit-wild-only.sxg IN CAA 0 issuewild "ca-under-test.caatestsuite.com; cansignhttpexchanges=yes"
+no-parameter.sxg IN CAA 0 issue "ca-under-test.caatestsuite.com"
+parameter-set-no.sxg IN CAA 0 issuewild "ca-under-test.caatestsuite.com; cansignhttpexchanges=no"
+invalid-parameter.sxg IN CAA 0 issue "ca-under-test.caatestsuite.com; invalid; cansignhttpexchanges=yes"

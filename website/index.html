@@ -202,6 +202,76 @@
 				</tbody>
 			</table>
 
+			<h2>SXG Deny Tests</h2>
+
+			<p>
+				Signed HTTP Exchanges (SXG) certificate issuance should be disallowed for all of the
+				above regular deny tests. CAs should also test SXG issuance with the following tests,
+				which only apply to CAs that issue SXG certificates.
+			</p>
+
+			<p>
+				For the following tests, ensure that your CAA checker believes that its issuer domain
+				name is "ca-under-test.caatestsuite.com".
+			</p>
+
+			<table class="tests">
+				<thead>
+					<tr><th>FQDN</th><th>Test Description</th></tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>permit-other-ca.sxg.caatestsuite.com</td>
+						<td>Tests proper processing of <code>0 issue "caatestsuite.com; cansignhttpexchanges=yes"</code>. Only the CA caatestsuite.com is allowed to issue.</td>
+					</tr>
+					<tr>
+						<td>*.permit-other-ca.sxg.caatestsuite.com</td>
+						<td>Tests proper processing of <code>0 issue "caatestsuite.com; cansignhttpexchanges=yes"</code>. Only the CA caatestsuite.com is allowed to issue.</td>
+					</tr>
+					<tr>
+						<td>*.permit-wild-other-ca.sxg.caatestsuite.com</td>
+						<td>Tests that the CA under test will not issue wildcard SXG certificates when only the caatestsuite.com CA is allowed to issue wildcard SXG certificates.</td>
+					</tr>
+					<tr>
+						<td>iodef.sxg.caatestsuite.com</td>
+						<td>Tests proper processing of a non-empty CAA record set with no issue / issuewild property.</td>
+					</tr>
+					<tr>
+						<td>*.iodef.sxg.caatestsuite.com</td>
+						<td>Tests proper processing of a non-empty CAA record set with no issue / issuewild property.</td>
+					</tr>
+					<tr>
+						<td>sxg.caatestsuite.com</td>
+						<td>Tests rejection when no CAA record exists.</td>
+					</tr>
+					<tr>
+						<td>*.sxg.caatestsuite.com</td>
+						<td>Tests rejection when no CAA record exists.</td>
+					</tr>
+					<tr>
+						<td>*.permit-issue-only.sxg.caatestsuite.com</td>
+						<td>Tests that issue does not carry over to issuewild with an invalid issuewild record present.</td>
+					</tr>
+					<tr>
+						<td>permit-wild-only.sxg.caatestsuite.com</td>
+						<td>Tests that issuewild does not carry over to issue.</td>
+					</tr>
+					<tr>
+						<td>no-parameter.sxg.caatestsuite.com</td>
+						<td>Tests that the presence of only a record with no "cansignhttpexchanges" parameter results in denial.</td>
+					</tr>
+					<tr>
+						<td>parameter-set-no.sxg.caatestsuite.com</td>
+						<td>Tests that a non-"yes" value for cansignhttpexchanges results in denial.</td>
+					</tr>
+					<tr>
+						<td>invalid-parameter.sxg.caatestsuite.com</td>
+						<td>Tests that an invalid CAA record (invalid parameter portion doesn't match RFC 8659 ABNF) does not permit issuance.</td>
+					</tr>
+				</tbody>
+			</table>
+
+
 			<h2>Change Log</h2>
 
 			<ul class="changelog">
@@ -211,6 +281,7 @@
 				<li>2017-09-09: Added <code>deny.permit.basic.caatestsuite.com</code>.</li>
 				<li>2017-09-11: Moved <code>dname-deny.basic.caatestsuite.com</code> and <code>cname-deny-sub.basic.caatestsuite.com</code> to Informational section, since they are affected by errata.</li>
 				<li>2018-05-18: Added <code>uppercase-deny.basic.caatestsuite.com</code> and <code>mixedcase-deny.basic.caatestsuite.com</code></li>
+				<li>2024-07-XX: Added a set of SXG issuance tests based on the draft Signed HTTP Exchanges standard.</li>
 			</ul>
 		</div>
 	</body>
